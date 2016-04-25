@@ -10,6 +10,11 @@ const app = express();
 app.set('json spaces', 4);
 app.set('x-powered-by', false);
 app.set('etag', getEtag);
+
+app.use(function(req, res, next) {
+    res.setHeader("Service-Worker-Allowed", "/");
+    return next();
+});
 app.use(express.static(path.join(__dirname, '../client')));
 app.use(bodyParser.json());
 
